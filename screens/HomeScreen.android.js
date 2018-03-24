@@ -9,15 +9,7 @@ export default class HomeScreen extends React.Component {
     title: 'Home',
   };
 
-  _openFolder = () => {};
-  _parse = response => {
-    let doc =  new DOMParser().parseFromString('<td></td>');
-    return doc;
-  }
-  _getURI = URI => {
-    console.log("Clicked");
-    fetch(URI,{ method: 'GET', }).then((response) => response.json()).then((responseJSON) => console.log(responseJSON));
-  }
+
   render(){
     const { navigate } = this.props.navigation;
     return(

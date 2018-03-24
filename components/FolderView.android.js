@@ -15,7 +15,7 @@ export default class FolderView extends React.Component {
   render(){
     return(
       <View style={{flex: 1,}}>
-        <FolderCard folderName={"Test Folder"} onPress={console.log("Press")}
+        <FolderCard folderName={"Test Folder"} onPress={console.log("Press")} />
       </View>
     );
   }
