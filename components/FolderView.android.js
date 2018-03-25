@@ -48,6 +48,7 @@ export default class FolderView extends React.Component {
     }else{
       return(
         <ScrollView style={{flex: 1,}} contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start',}}>
+          {this.state.folders.map(title => (<FolderCard folderName={title} onPress={console.log("Press")}/>))}
         </ScrollView>
       );
     }
