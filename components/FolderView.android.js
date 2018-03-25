@@ -13,7 +13,7 @@ export default class FolderView extends React.Component {
   }
 
   _getURL = addition => {
-    var url = 'http://localhost:3000/parseurl/' + addition;
+    var url = 'https://defcon-api.herokuapp.com/parseurl/' + addition;
     fetch(url,{method: 'GET',})
       .then(response => {
       let folders = []
