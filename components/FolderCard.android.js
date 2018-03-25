@@ -6,7 +6,7 @@ export default class FolderCard extends React.Component {
     return(
       <TouchableOpacity style={styles.container} onPress={this.props.onPress}>
         <View style={{flex: 5, paddingLeft: 20, justifyContent: 'center',}}>
-          <Text style={{fontSize: 20, marginLeft: 20, color: '#757575',}}>{this.props.folderName}</Text>
+          <Text style={{fontSize: 20, color: '#757575',}}>{this.props.folderName}</Text>
         </View>
       </TouchableOpacity>
     );
@@ -16,10 +16,13 @@ export default class FolderCard extends React.Component {
 
 const styles = new StyleSheet.create({
   container: {
-    flex: 1,
+    width: '48%',
+    height: 100,
     backgroundColor: '#FFFFFF',
     borderRadius: 3,
     elevation: 3,
-    margin: 3,
+    marginTop: 2,
+    marginLeft: 5,
+    padding: 10,
   },
 });

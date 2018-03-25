@@ -5,16 +5,18 @@ import FolderView from '../components/FolderView';
 
 var DOMParser = require('react-native-html-parser').DomParser;
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Home',
-  };
+  constructor(props){
+    super(props)
+  }
 
+  static navigationOptions = {
+    title: "Defcon Media",
+  };
 
   render(){
     const { navigate } = this.props.navigation;
     return(
       <View style={{flex: 1,}}>
-        <Text>asdf</Text>
         <FolderView />
       </View>
     );

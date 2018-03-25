@@ -6,6 +6,7 @@
     "react": "16.2.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-25.0.0.tar.gz",
     "react-native-html-parser": "0.0.5",
-    "react-navigation": "^1.5.8"
+    "react-navigation": "^1.5.8",
+    "tabletojson": "^0.7.1"
   }
 }

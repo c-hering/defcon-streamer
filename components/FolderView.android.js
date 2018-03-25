@@ -1,8 +1,9 @@
 import React from 'react';
-import { View,Text, } from 'react-native';
+import { View,Text,FlatList,ScrollView } from 'react-native';
 import FolderCard from './FolderCard';
 
-var DomParser = require('react-native-html-parser').DOMParser;
+var tabletojson = require('tabletojson');
+
 export default class FolderView extends React.Component {
   constructor(props){
     super(props);
@@ -14,9 +15,9 @@ export default class FolderView extends React.Component {
 
   render(){
     return(
-      <View style={{flex: 1,}}>
-        <FolderCard folderName={"Test Folder"} onPress={console.log("Press")} />
-      </View>
+      <ScrollView style={{flex: 1,}} contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start',}}>
+          <FolderCard folderName={"Test Folder"} onPress={console.log("Press")} />
+      </ScrollView>
     );
   }
 }
