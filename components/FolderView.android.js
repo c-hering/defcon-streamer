@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,FlatList,ScrollView } from 'react-native';
+import { View,ActivityIndicator,ScrollView } from 'react-native';
 import FolderCard from './FolderCard';
 
 
@@ -7,25 +7,46 @@ export default class FolderView extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      folders: []
+      folders: [],
+      isLoading: true,
     }
   }
 
-  _getURI = addition => {
-    //make rest call
-    for(i in table){
-      for(x in table[i]){
-        folders.push(table[i][x].file_name___)
+  _getURL = addition => {
+    var url = 'http://localhost:3000/parseurl/' + addition;
+    fetch(url,{method: 'GET',})
+      .then(response => {
+      let folders = []
+      for(i in table){
+        for(x in table[i]){
+          folders.push(table[i][x].file_name___)
+        }
       }
-    }
-    this.setState(folders: folders)
+      console.log("asdfasd")
+      console.log(folders)
+      this.setState({
+        folders: folders,
+        isLoading: false,
+      });
+    })
   }
 
+  componentWillMount(){
+    this._getURL("")
+  }
 
   render(){
-    return(
-      <ScrollView style={{flex: 1,}} contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start',}}>
-      </ScrollView>
-    );
+    if(this.state.isLoading){
+      return(
+        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+          <ActivityIndicator size="large" color="#0000ff"/>
+        </View>
+      );
+    }else{
+      return(
+        <ScrollView style={{flex: 1,}} contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start',}}>
+        </ScrollView>
+      );
+    }
   }
 }
