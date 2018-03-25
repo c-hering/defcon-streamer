@@ -14,20 +14,23 @@ export default class FolderView extends React.Component {
 
   _getURL = addition => {
     var url = 'https://defcon-api.herokuapp.com/parseurl/' + addition;
+    console.log("URL: " + url)
     fetch(url,{method: 'GET',})
       .then(response => {
-      let folders = []
-      for(i in table){
-        for(x in table[i]){
-          folders.push(table[i][x].file_name___)
+        if(response.ok){
+          response.json().then(json => {
+            let folders = []
+            for(i in json){
+              for(x in json[i]){
+                folders.push(json[i][x].file_name___)
+              }
+            }
+            this.setState({
+              folders: folders,
+              isLoading: false,
+            });
+          });
         }
-      }
-      console.log("asdfasd")
-      console.log(folders)
-      this.setState({
-        folders: folders,
-        isLoading: false,
-      });
     })
   }
 
