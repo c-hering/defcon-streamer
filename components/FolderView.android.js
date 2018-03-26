@@ -7,14 +7,17 @@ export default class FolderView extends React.Component {
   constructor(props){
     super(props);
     this.state = {
+      urlAddition: '',
       folders: [],
       isLoading: true,
     }
   }
 
-  _getURL = addition => {
+  _getURL = () => {
+    var addition;
+    this.state.urlAddition === 'Parent directory/' ? addition = '' : addition = this.state.urlAddition
     var url = 'https://defcon-api.herokuapp.com/parseurl/' + addition;
-    console.log("URL: " + url)
+    console.log(url)
     fetch(url,{method: 'GET',})
       .then(response => {
         if(response.ok){
@@ -22,7 +25,7 @@ export default class FolderView extends React.Component {
             let folders = []
             for(i in json){
               for(x in json[i]){
-                folders.push(json[i][x].file_name___)
+                folders.push(json[i][x].File_Name___.replace(/_/g,' '))
               }
             }
             this.setState({
@@ -34,9 +37,33 @@ export default class FolderView extends React.Component {
     })
   }
 
-  componentWillMount(){
-    this._getURL("")
+  _onPress = title => {
+    if(title === 'Parent directory/'){
+      this.setState({
+        urlAddition: '',
+      })
+    }else{
+      var url;
+      this.state.urlAddition.length >= 2 ? url = this.state.urlAddition.slice(0,-1) + "_" + title : url = this.state.urlAddition + title
+      this.setState({
+        urlAddition: url,
+      })
+    }
   }
+
+  componentDidUpdate(prevProps, prevState){
+    console.log(this.state.urlAddition)
+    if(prevState.urlAddition !== this.state.urlAddition){
+      this.setState({isLoading: true,})
+      this._getURL()
+    }
+  }
+
+  componentWillMount(){
+    this._getURL()
+    console.log('mount')
+  }
+
 
   render(){
     if(this.state.isLoading){
@@ -48,7 +75,7 @@ export default class FolderView extends React.Component {
     }else{
       return(
         <ScrollView style={{flex: 1,}} contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start',}}>
-          {this.state.folders.map(title => (<FolderCard folderName={title} onPress={console.log("Press")}/>))}
+          {this.state.folders.map(title => (<FolderCard key={title} folderName={title} onTouch={() => this._onPress(title)}/>))}
         </ScrollView>
       );
     }
