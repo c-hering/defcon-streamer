@@ -14,9 +14,7 @@ export default class FolderView extends React.Component {
   }
 
   _getURL = () => {
-    var addition;
-    this.state.urlAddition === 'Parent directory/' ? addition = '' : addition = this.state.urlAddition
-    var url = 'https://defcon-api.herokuapp.com/parseurl/' + addition;
+    var url = 'https://defcon-api.herokuapp.com/parseurl/' + this.state.urlAddition;
     console.log(url)
     fetch(url,{method: 'GET',})
       .then(response => {
