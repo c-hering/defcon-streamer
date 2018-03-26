@@ -1,6 +1,7 @@
 import React from 'react';
 import { View,ActivityIndicator,ScrollView } from 'react-native';
 import FolderCard from './FolderCard';
+import FileCard from './FileCard';
 
 
 export default class FolderView extends React.Component {
@@ -35,7 +36,7 @@ export default class FolderView extends React.Component {
     })
   }
 
-  _onPress = title => {
+  _onFolderPress = title => {
     if(title === 'Parent directory/' && !this.state.urlAddition.includes('&')){
       this.setState({
         urlAddition: '',
@@ -51,6 +52,14 @@ export default class FolderView extends React.Component {
       this.setState({
         urlAddition: url,
       })
+    }
+  }
+
+  _renderContent = (title) => {
+    if(title.includes('/')){
+      return (<FolderCard key={title} folderName={title.length > 30 ? title.substring(0,30) + '...' : title} onTouch={() => this._onFolderPress(title)}/>)
+    }else{
+      return (<FileCard key={title} folderName={title.length > 50 ? title.substring(0,50) + '...' : title} onTouch={() => console.log("file pressed")}/>)
     }
   }
 
@@ -71,14 +80,14 @@ export default class FolderView extends React.Component {
   render(){
     if(this.state.isLoading){
       return(
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-          <ActivityIndicator size="large" color="#0000ff"/>
+        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
+          <ActivityIndicator size="large" color="#0000FF"/>
         </View>
       );
     }else{
       return(
         <ScrollView style={{flex: 1,}} contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start',}}>
-          {this.state.folders.map(title => (<FolderCard key={title} folderName={title} onTouch={() => this._onPress(title)}/>))}
+          {this.state.folders.map(title => this._renderContent(title))}
         </ScrollView>
       );
     }
