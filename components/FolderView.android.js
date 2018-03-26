@@ -11,6 +11,8 @@ export default class FolderView extends React.Component {
       urlAddition: '',
       folders: [],
       isLoading: true,
+      isListening: false,
+      streamURL: '',
     }
   }
 
@@ -33,6 +35,16 @@ export default class FolderView extends React.Component {
             });
           });
         }
+    })
+  }
+
+  _onFilePress = title => {
+    //convert urlAddition back to url for audio streaming
+    let url = "https://media.defcon.org/"
+    url = url + this.state.urlAddition.replace(/&/g,'/') + title
+    this.setState({
+      isListening: true,
+      streamURL: url,
     })
   }
 
@@ -59,7 +71,7 @@ export default class FolderView extends React.Component {
     if(title.includes('/')){
       return (<FolderCard key={title} folderName={title.length > 30 ? title.substring(0,30) + '...' : title} onTouch={() => this._onFolderPress(title)}/>)
     }else{
-      return (<FileCard key={title} folderName={title.length > 50 ? title.substring(0,50) + '...' : title} onTouch={() => console.log("file pressed")}/>)
+      return (<FileCard key={title} folderName={title.length > 50 ? title.substring(0,50) + '...' : title} onTouch={() => this._onFilePress(title)}/>)
     }
   }
 
