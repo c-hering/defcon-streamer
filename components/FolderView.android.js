@@ -15,7 +15,7 @@ export default class FolderView extends React.Component {
 
   _getURL = () => {
     var url = 'https://defcon-api.herokuapp.com/parseurl/' + this.state.urlAddition;
-    console.log(url)
+    // console.log(url)
     fetch(url,{method: 'GET',})
       .then(response => {
         if(response.ok){
@@ -36,13 +36,18 @@ export default class FolderView extends React.Component {
   }
 
   _onPress = title => {
-    if(title === 'Parent directory/'){
+    if(title === 'Parent directory/' && !this.state.urlAddition.includes('&')){
       this.setState({
         urlAddition: '',
       })
+    }else if(title === 'Parent directory/' && this.state.urlAddition.includes('&')){
+      let url = this.state.urlAddition.substring(0,this.state.urlAddition.indexOf('&'))
+      this.setState({
+        urlAddition: url,
+      })
     }else{
-      var url;
-      this.state.urlAddition.length >= 2 ? url = this.state.urlAddition.slice(0,-1) + "_" + title : url = this.state.urlAddition + title
+      let url;
+      this.state.urlAddition.length >= 2 ? url = this.state.urlAddition.slice(0,-1) + "&" + title : url = this.state.urlAddition + title
       this.setState({
         urlAddition: url,
       })
@@ -50,7 +55,7 @@ export default class FolderView extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState){
-    console.log(this.state.urlAddition)
+    // console.log(this.state.urlAddition)
     if(prevState.urlAddition !== this.state.urlAddition){
       this.setState({isLoading: true,})
       this._getURL()
@@ -59,7 +64,7 @@ export default class FolderView extends React.Component {
 
   componentWillMount(){
     this._getURL()
-    console.log('mount')
+    // console.log('mount')
   }
 
 
