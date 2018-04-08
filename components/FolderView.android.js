@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,DrawerLayoutAndroid,ActivityIndicator,ScrollView } from 'react-native';
+import { View,Text,DrawerLayoutAndroid,ActivityIndicator,ScrollView } from 'react-native';
 import FolderCard from './FolderCard';
 import FileCard from './FileCard';
 import NavigationItem from './NavigationItem';
@@ -89,16 +89,7 @@ export default class FolderView extends React.Component {
     // console.log('mount')
   }
 
-
   render(){
-
-    var navigationView = (
-      <View>
-        <NavigationItem itemTitle="Downloads" onTouch={() => console.log('Downloads')} ></NavigationItem>
-        <NavigationItem itemTitle="File Navigator" onTouch={() => console.log('File Navigator')} ></NavigationItem>
-      </View>
-    );
-
     if(this.state.isLoading){
       return(
         <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center',}}>
@@ -106,27 +97,17 @@ export default class FolderView extends React.Component {
         </View>
       );
     }else{
-      if(this.state.isListening){
+      if(this.state.setScreenDownloads){
         return(
-          <DrawerLayoutAndroid
-            drawerWidth={200}
-            drawerPosition={DrawerLayoutAndroid.positions.Left}
-            renderNavigationView={() => navigationView}>
-            <ScrollView style={{flex: 1,}} contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start',}}>
-              {this.state.folders.map(title => this._renderContent(title))}
-            </ScrollView>
-          </DrawerLayoutAndroid>
+          <View>
+            <Text>DOWNLOADS</Text>
+          </View>
         );
       }else{
         return(
-          <DrawerLayoutAndroid
-            drawerWidth={200}
-            drawerPosition={DrawerLayoutAndroid.positions.Left}
-            renderNavigationView={() => navigationView}>
-            <ScrollView style={{flex: 1,}} contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start',}}>
-              {this.state.folders.map(title => this._renderContent(title))}
-            </ScrollView>
-          </DrawerLayoutAndroid>
+          <ScrollView style={{flex: 1,}} contentContainerStyle={{flexDirection: 'row', flexWrap: 'wrap', alignItems: 'flex-start',}}>
+            {this.state.folders.map(title => this._renderContent(title))}
+          </ScrollView>
         );
       }
     }
