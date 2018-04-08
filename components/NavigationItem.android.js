@@ -5,7 +5,7 @@ export default class NavigationItem extends React.Component{
 
   render(){
     return(
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={this.props.onTouch}>
         <View style={{flex: 1,}}>
           <Text>{this.props.itemTitle}</Text>
         </View>
@@ -16,12 +16,10 @@ export default class NavigationItem extends React.Component{
 
 var styles = new StyleSheet.create({
   container: {
-    width: '100%',
+    width: '95%',
     height: 50,
     backgroundColor: '#FFFFFF',
-    borderRadius: 3,
-    elevation: 3,
-    marginTop: 2,
+    marginTop: 5,
     marginLeft: 5,
     marginBottom: 5,
     padding: 10,

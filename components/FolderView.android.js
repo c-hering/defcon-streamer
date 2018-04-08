@@ -94,7 +94,8 @@ export default class FolderView extends React.Component {
 
     var navigationView = (
       <View>
-
+        <NavigationItem itemTitle="Downloads" onTouch={() => console.log('Downloads')} ></NavigationItem>
+        <NavigationItem itemTitle="File Navigator" onTouch={() => console.log('File Navigator')} ></NavigationItem>
       </View>
     );
 
